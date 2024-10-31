@@ -59,7 +59,7 @@ class AuthContainer extends Component {
       })
       .catch((err) => {
         this.setState({
-          error: err.response.error
+          error: err.response.data.error
         })
       })
       .finally(() => {
@@ -80,7 +80,7 @@ class AuthContainer extends Component {
         })
         .catch((err) => {
           this.setState({
-          error: err.response.error
+          error: err.response.data.error
         })
         })
         .finally(() => {

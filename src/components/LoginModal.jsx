@@ -55,6 +55,7 @@ const LoginModal = ({ isLogin, toggleLogin, handleChange, handleSubmit, error,lo
 
               <button
 								disabled={loading}
+                type="button"
                 onClick={toggleLogin}
                 className="btn btn-link w-100 mt-3 text-decoration-none"
               >

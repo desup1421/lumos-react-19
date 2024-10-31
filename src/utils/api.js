@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const login = async (data) => {
     const res = await axios.post(`${API_URL}/login`, data, {
-        header: {
+        headers: {
             "Content-Type": "application/json",
             "x-api-key": "RJS1-202403"
         },
@@ -15,7 +15,7 @@ export const login = async (data) => {
 }
 export const register = async (data) => {
     const res = await axios.post(`${API_URL}/register`, data, {
-        header: {
+        headers: {
             "Content-Type": "application/json",
             "x-api-key": "RJS1-202403"
         },
@@ -23,13 +23,23 @@ export const register = async (data) => {
     return res.data;
 };
 
-// export const queryAI = async (data) => {
-//     const res = await axios.post(`${API_URL}/query`, data, {
-//         header: {
-//             "Content-Type": "application/json",
-//             "x-api-key": "RJS1-202403",
-//             "Authorization": "Bearer " + localStorage.getItem("token")
-//         },
-//     });
-//     return res.data;
-// };
+export const queryAI = async (data, token) => {
+    const res = await axios.post(`${API_URL}/query`, data, {
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "RJS1-202401",
+            "Authorization": `Bearer ${token}`,
+        }
+    });
+    return res.data;
+};
+
+export const logout = async (token) => {
+    console.log((token))
+    const res = await axios.post(`${API_URL}/logout`, null, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        }
+    });
+    return res.data;
+};

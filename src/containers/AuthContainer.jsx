@@ -1,38 +1,38 @@
-import React, { Component } from 'react';
-import LoginModal from '../components/LoginModal';
-import { login, register} from '../utils/api';
+import React, { Component } from "react";
+import LoginModal from "../components/LoginModal";
+import { login, register } from "../utils/api";
 
 class AuthContainer extends Component {
   state = {
     isLogin: true,
     form: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
     },
     loading: false,
     error: null,
   };
 
   componentDidMount() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       this.props.setToken(token);
     }
   }
 
   toggleLogin = () => {
-    this.setState({  
+    this.setState({
       isLogin: !this.state.isLogin,
       error: null,
     });
   };
 
   handleChange = (e) => {
-    this.setState({ 
+    this.setState({
       form: {
         ...this.state.form,
-        [e.target.name]: e.target.value
-      }
+        [e.target.name]: e.target.value,
+      },
     });
   };
 
@@ -41,30 +41,29 @@ class AuthContainer extends Component {
     this.setState({
       loading: true,
       error: null,
-    })
+    });
     if (this.state.isLogin) {
       login(this.state.form)
-      .then((res) => {
-        localStorage.setItem('token', res.accessToken);
-        this.props.setToken(res.accessToken);
-        console.log(res);
-        this.setState({
-          isLogin: true,
-          error: null,
-          form: {
-            username: '',
-            password: '',
-          }
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          error: err.response.data.error
+        .then((res) => {
+          localStorage.setItem("token", res.accessToken);
+          this.props.setToken(res.accessToken);
+          this.setState({
+            isLogin: true,
+            error: null,
+            form: {
+              username: "",
+              password: "",
+            },
+          });
         })
-      })
-      .finally(() => {
-        this.setState({ loading: false });
-      });
+        .catch((err) => {
+          this.setState({
+            error: err.response.data.error,
+          });
+        })
+        .finally(() => {
+          this.setState({ loading: false });
+        });
     } else {
       register(this.state.form)
         .then(() => {
@@ -73,30 +72,30 @@ class AuthContainer extends Component {
             isLogin: true,
             error: null,
             form: {
-              username: '',
-              password: '',
-            }
+              username: "",
+              password: "",
+            },
           });
         })
         .catch((err) => {
           this.setState({
-          error: err.response.data.error
-        })
+            error: err.response.data.error,
+          });
         })
         .finally(() => {
           this.setState({ loading: false });
         });
     }
-  }
+  };
 
   render() {
     return (
       <div>
-        <LoginModal 
+        <LoginModal
           form={this.state.form}
           loading={this.state.loading}
           error={this.state.error}
-          isLogin={this.state.isLogin} 
+          isLogin={this.state.isLogin}
           toggleLogin={this.toggleLogin}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}

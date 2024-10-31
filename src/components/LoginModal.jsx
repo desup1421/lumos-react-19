@@ -1,6 +1,14 @@
 import React from "react";
 
-const LoginModal = ({ isLogin, toggleLogin, handleChange, handleSubmit, error,loading, form }) => {
+const LoginModal = ({
+  isLogin,
+  toggleLogin,
+  handleChange,
+  handleSubmit,
+  error,
+  loading,
+  form,
+}) => {
   return (
     <div className="modal show d-block" tabIndex="-1">
       <div className="modal-dialog modal-dialog-centered">
@@ -9,7 +17,12 @@ const LoginModal = ({ isLogin, toggleLogin, handleChange, handleSubmit, error,lo
             <h5 className="modal-title">{isLogin ? "Login" : "Register"}</h5>
           </div>
           <div className="modal-body">
-						{error && <div className="alert alert-danger"><i className="bi bi-excalamation-danger"></i>{error}</div>}
+            {error && (
+              <div className="alert alert-danger">
+                <i className="bi bi-excalamation-danger"></i>
+                {error}
+              </div>
+            )}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="username" className="form-label">
@@ -19,11 +32,11 @@ const LoginModal = ({ isLogin, toggleLogin, handleChange, handleSubmit, error,lo
                   type="text"
                   className="form-control"
                   id="username"
-				  				name="username"
-									value={form.username}
-				  				onChange={handleChange}
+                  name="username"
+                  value={form.username}
+                  onChange={handleChange}
                   required
-									disabled={loading}
+                  disabled={loading}
                   minLength="6"
                   maxLength="30"
                 />
@@ -36,16 +49,16 @@ const LoginModal = ({ isLogin, toggleLogin, handleChange, handleSubmit, error,lo
                   type="password"
                   className="form-control"
                   id="password"
-									name="password"
-									value={form.password}
-									onChange={handleChange}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
                   required
-									disabled={loading}
+                  disabled={loading}
                 />
               </div>
 
               <button
-								disabled={loading}
+                disabled={loading}
                 type="submit"
                 className="btn btn-primary w-100 mt-2 fw-bold"
               >
@@ -54,7 +67,7 @@ const LoginModal = ({ isLogin, toggleLogin, handleChange, handleSubmit, error,lo
               </button>
 
               <button
-								disabled={loading}
+                disabled={loading}
                 type="button"
                 onClick={toggleLogin}
                 className="btn btn-link w-100 mt-3 text-decoration-none"

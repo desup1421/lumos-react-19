@@ -3,13 +3,14 @@ import ChatInput from "../components/ChatInput";
 import ChatMessage from "../components/ChatMessage";
 import Navbar from "../components/Navbar";
 import { queryAI, logout } from "../utils/api";
+import Loading from "../components/Loading";
 
 class ChatContainer extends Component {
   state = {
     messages: [],
     loading: false,
     error: null,
-    query: '',
+    query: "",
   };
 
   handleChange = (e) => {
@@ -28,8 +29,8 @@ class ChatContainer extends Component {
     queryAI({ query }, this.props.token)
       .then((res) => {
         this.setState({
-          messages: [...this.state.messages, {query, data: res}],
-          query: '',
+          messages: [...this.state.messages, { query, data: res }],
+          query: "",
         });
       })
       .catch((err) => {
@@ -45,30 +46,37 @@ class ChatContainer extends Component {
   };
 
   handleLogout = () => {
-    const token = this.props.token;
-    console.log(token);
     logout(this.props.token)
       .then(() => {
         localStorage.removeItem("token");
         this.props.setToken();
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          error: err.response.data.error,
+        });
       });
   };
 
   render() {
     return (
       <div>
-        <Navbar setToken={this.props.setToken} handleLogout={this.handleLogout} />
-        {
-          this.state.messages.map((message, index) => (
-            <ChatMessage key={index} message={message.data.data} query={message.query} />
-          ))
-        }
+        <Navbar
+          setToken={this.props.setToken}
+          handleLogout={this.handleLogout}
+        />
+
+        {this.state.messages.map((message, index) => (
+          <ChatMessage
+            key={index}
+            message={message.data.data}
+            query={message.query}
+          />
+        ))}
+        {this.state.loading && <Loading />}
         <ChatInput
           handleChange={this.handleChange}
-          query = {this.state.query}
+          query={this.state.query}
           handleSubmit={this.handleQuery}
           loading={this.state.loading}
         />

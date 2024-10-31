@@ -1,19 +1,19 @@
 .message-cstm {
-    margin-top: 10px;
-    margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-.message-cstm:nth-last-child(2){
-    margin-bottom: 100px;
+.message-cstm:nth-last-child(2) {
+  margin-bottom: 100px;
 }
-.message-cstm:nth-child(2){
-    margin-top: 80px;
+.message-cstm:nth-child(2) {
+  margin-top: 80px;
 }
 
 .rounded-user-cstm {
-    border-radius: 15px 15px 0 15px;
+  border-radius: 15px 15px 0 15px;
 }
 
 .rounded-ai-cstm {
-    border-radius: 15px 15px 15px 0;
+  border-radius: 15px 15px 15px 0;
 }
